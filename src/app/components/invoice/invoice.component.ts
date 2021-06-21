@@ -11,11 +11,13 @@ import {OrderDetail} from '../../model/order-detail';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent implements OnInit {
+  // get current user to print invoice
   username: string;
   userId: number;
   user: User = {};
   isLoggedIn: boolean;
 
+  // get parameters passed from check out component
   ownerName;
   ownerEmail;
   totalPrice;
@@ -25,6 +27,7 @@ export class InvoiceComponent implements OnInit {
   vehicleDescription;
   vehicleLocation;
 
+  // get today to print invoice
   dateObj = new Date();
   month = this.dateObj.getUTCMonth() + 1; //months from 1-12
   day = this.dateObj.getUTCDate();
