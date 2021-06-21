@@ -28,6 +28,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { BookingConfirmationComponent } from './components/booking-confirmation/booking-confirmation.component';
 import { UpdateVehicleComponent } from './components/vehicle/update-vehicle/update-vehicle.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { UpdateVehicleComponent } from './components/vehicle/update-vehicle/upda
     CheckoutComponent,
     SigninComponent,
     SignupComponent,
-    BookingConfirmationComponent
+    BookingConfirmationComponent,
+    InvoiceComponent
     ]
 
     ,imports: [

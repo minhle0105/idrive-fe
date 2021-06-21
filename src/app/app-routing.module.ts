@@ -12,6 +12,7 @@ import {UpdateVehicleComponent} from './components/vehicle/update-vehicle/update
 import {SigninComponent} from "./components/signin/signin.component";
 import {SignupComponent} from "./components/signup/signup.component";
 import {BookingConfirmationComponent} from './components/booking-confirmation/booking-confirmation.component';
+import {InvoiceComponent} from './components/invoice/invoice.component';
 
 
 const routes: Routes = [
@@ -62,6 +63,10 @@ const routes: Routes = [
   {
     path: 'edit-listing/:id',
     component: UpdateVehicleComponent
+  },
+  {
+    path: 'invoice',
+    component: InvoiceComponent
   }
 ];
 
