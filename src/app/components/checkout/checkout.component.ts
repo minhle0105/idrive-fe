@@ -52,7 +52,14 @@ export class CheckoutComponent implements OnInit {
         userId: 2
       };
       this.orderDetailService.save(this.orderDetail).subscribe(() => {
-        this.router.navigate(['booking-confirmation'], {queryParams: {ownerName: this.orderDetail.own.fullName, ownerEmail: this.orderDetail.own.email, totalPrice: this.orderDetail.totalPrice, startDate: this.orderDetail.startTime, endDate: this.orderDetail.endTime, vehicleBrand: this.orderDetail.vehicle.brand, vehicleDescription: this.orderDetail.vehicle.description, vehicleLocation: this.orderDetail.vehicle.location}});
+        this.router.navigate(['booking-confirmation'], {queryParams: {ownerName: this.orderDetail.own.fullName,
+                                                                                      ownerEmail: this.orderDetail.own.email,
+                                                                                      totalPrice: this.orderDetail.totalPrice,
+                                                                                      startDate: this.orderDetail.startTime,
+                                                                                      endDate: this.orderDetail.endTime,
+                                                                                      vehicleBrand: this.orderDetail.vehicle.brand,
+                                                                                      vehicleDescription: this.orderDetail.vehicle.description,
+                                                                                      vehicleLocation: this.orderDetail.vehicle.location.name + ", " + this.orderDetail.vehicle.location.country}});
       });
     })
 
