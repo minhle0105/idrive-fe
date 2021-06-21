@@ -23,8 +23,9 @@
     <div class="col-md-6">
 
       <p id="details">
-        <strong>Order:</strong> #00124 <br>
-        <strong>Issued:</strong> 20/07/2019 <br>
+        <strong>Issued:</strong> {{today}} <br>
+        <strong>From:</strong> {{startDate}} <br>
+        <strong>To:</strong> {{endDate}} <br>
         Due 7 days from date of issue
       </p>
     </div>
@@ -40,18 +41,16 @@
     <div class="col-md-6">
       <strong class="margin-bottom-5">Supplier</strong>
       <p>
-        Listeo Ltd. <br>
-        21 St Andrews Lane <br>
-        London, CF44 6ZL, UK <br>
+        {{ownerName}} <br>
+        {{ownerEmail}} <br>
       </p>
     </div>
 
     <div class="col-md-6">
       <strong class="margin-bottom-5">Customer</strong>
       <p>
-        John Doe <br>
-        36 Edgewater Street <br>
-        Melbourne, 2540, Australia <br>
+        {{user.fullName}} <br>
+         {{user.email}} <br>
       </p>
     </div>
   </div>
@@ -62,17 +61,17 @@
     <div class="col-md-12">
       <table class="margin-top-20">
         <tr>
+          <th>Vehicle</th>
           <th>Description</th>
-          <th>Quantity</th>
-          <th>VAT</th>
-          <th>Total</th>
+          <th>Location</th>
+          <th>Order Amount</th>
         </tr>
 
         <tr>
-          <td>Extended Plan</td>
-          <td>1</td>
-          <td>$0.00</td>
-          <td>$9.00</td>
+          <td>{{vehicleBrand}}</td>
+          <td>{{vehicleDescription}}</td>
+          <td>{{vehicleLocation}}</td>
+          <td>{{totalPrice}}</td>
         </tr>
       </table>
     </div>
@@ -81,7 +80,7 @@
       <table id="totals">
         <tr>
           <th>Total Due</th>
-          <th><span>$9.00</span></th>
+          <th><span>{{totalPrice}}</span></th>
         </tr>
       </table>
     </div>
