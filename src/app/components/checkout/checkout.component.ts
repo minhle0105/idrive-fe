@@ -4,6 +4,9 @@ import {Vehicle} from '../../model/vehicle';
 import {VehicleService} from '../../service/vehicle/vehicle.service';
 import {OrderDetailService} from '../../service/order-detail.service';
 import {OrderDetail} from '../../model/order-detail';
+import {User} from '../../model/user';
+import {AuthService} from '../../service/auth.service';
+import {UserService} from '../../service/user.service';
 
 @Component({
   selector: 'app-checkout',
@@ -11,6 +14,11 @@ import {OrderDetail} from '../../model/order-detail';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+
+  username: string;
+  userId: number;
+  user: User = {};
+  isLoggedIn: boolean;
 
   lengthOfRental: number = -1;
   vehicleId: number = -1;
@@ -22,7 +30,12 @@ export class CheckoutComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private vehicleService: VehicleService,
               private router: Router,
-              private orderDetailService: OrderDetailService) {
+              private orderDetailService: OrderDetailService,
+              private authService: AuthService,
+              private userService: UserService) {
+    this.authService.loggedIn.subscribe((data: boolean) => this.isLoggedIn = data);
+    this.authService.username.subscribe((data: string) => this.username = data);
+    this.authService.userId.subscribe((data: number) => this.userId = data);
   }
 
   ngOnInit() {
@@ -32,6 +45,20 @@ export class CheckoutComponent implements OnInit {
       this.getVehicleById(this.vehicleId);
       this.startDate = params.startDate;
       this.endDate = params.endDate;
+    });
+    this.username = this.authService.getUserName();
+    this.userId = this.authService.getUserId();
+    if (this.username != null) {
+      this.isLoggedIn = true;
+    }
+    this.getUser(this.username);
+  }
+
+  getUser(uname: string) {
+    this.authService.getUserByUserName(uname).subscribe(user => {
+      this.user = user;
+    }, error => {
+      console.log(error.message);
     });
   }
 
@@ -49,9 +76,7 @@ export class CheckoutComponent implements OnInit {
       this.orderDetail.startTime = new Date(this.startDate);
       this.orderDetail.endTime = new Date(this.endDate);
       this.orderDetail.own = this.vehicleToCheckout.owner;
-      this.orderDetail.renter = {
-        userId: 2
-      };
+      this.orderDetail.renter = this.user;
       this.orderDetailService.save(this.orderDetail).subscribe(() => {
         this.router.navigate(['booking-confirmation'], {
           queryParams: {
