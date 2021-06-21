@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Vehicle} from '../../model/vehicle';
 import {CarDetailService} from '../../service/detailed-info/car-detail.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -35,13 +35,13 @@ export class DetailedInfoComponent implements OnInit {
   ngOnInit() {
     this.username = this.authService.getUserName();
     this.currentUserId = this.authService.getUserId();
-    if (this.username != null){
+    if (this.username != null) {
       this.isLoggedIn = true;
     }
     this.activatedRoute.queryParams.subscribe(params => {
       this.vehicleId = params.vehicleId;
       this.getVehicleById(this.vehicleId);
-    })
+    });
   }
 
   getVehicleById(id: number) {
@@ -53,10 +53,10 @@ export class DetailedInfoComponent implements OnInit {
 
   checkOut(vehicleId) {
     // @ts-ignore
-    var startDate = new Date(document.getElementById("startDate").value);
+    var startDate = new Date(document.getElementById('startDate').value);
     // @ts-ignore
-    var endDate = new Date(document.getElementById("endDate").value);
-    var rentDate = (endDate.getTime() - startDate.getTime()) / (1000*3600*24);
+    var endDate = new Date(document.getElementById('endDate').value);
+    var rentDate = (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24);
     this.router.navigate(['checkout'], {queryParams: {totalDate: rentDate, vehicleId: vehicleId, startDate: startDate, endDate: endDate}});
   }
 

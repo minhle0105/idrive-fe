@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../../model/user';
 import {AuthService} from '../../service/auth.service';
 import {UserService} from '../../service/user.service';
@@ -42,7 +42,7 @@ export class InvoiceComponent implements OnInit {
   ngOnInit() {
     this.username = this.authService.getUserName();
     this.userId = this.authService.getUserId();
-    if (this.username != null){
+    if (this.username != null) {
       this.isLoggedIn = true;
     }
     this.getUser(this.username);
@@ -55,14 +55,14 @@ export class InvoiceComponent implements OnInit {
       this.vehicleBrand = params.vehicleBrand;
       this.vehicleDescription = params.vehicleDescription;
       this.vehicleLocation = params.vehicleLocation;
-    })
+    });
   }
 
   getUser(uname: string) {
     this.authService.getUserByUserName(uname).subscribe(user => {
       this.user = user;
     }, error => {
-      console.log(error.message)
+      console.log(error.message);
     });
   }
 

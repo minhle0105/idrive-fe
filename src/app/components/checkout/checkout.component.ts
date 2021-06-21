@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Vehicle} from '../../model/vehicle';
 import {VehicleService} from '../../service/vehicle/vehicle.service';
@@ -22,7 +22,8 @@ export class CheckoutComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private vehicleService: VehicleService,
               private router: Router,
-              private orderDetailService: OrderDetailService) { }
+              private orderDetailService: OrderDetailService) {
+  }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -31,13 +32,13 @@ export class CheckoutComponent implements OnInit {
       this.getVehicleById(this.vehicleId);
       this.startDate = params.startDate;
       this.endDate = params.endDate;
-    })
+    });
   }
 
   getVehicleById(id) {
     this.vehicleService.findById(this.vehicleId).subscribe(v => {
       this.vehicleToCheckout = v;
-    })
+    });
   }
 
   saveOrderDetails() {
@@ -52,16 +53,20 @@ export class CheckoutComponent implements OnInit {
         userId: 2
       };
       this.orderDetailService.save(this.orderDetail).subscribe(() => {
-        this.router.navigate(['booking-confirmation'], {queryParams: {ownerName: this.orderDetail.own.fullName,
-                                                                                      ownerEmail: this.orderDetail.own.email,
-                                                                                      totalPrice: this.orderDetail.totalPrice,
-                                                                                      startDate: this.orderDetail.startTime,
-                                                                                      endDate: this.orderDetail.endTime,
-                                                                                      vehicleBrand: this.orderDetail.vehicle.brand,
-                                                                                      vehicleDescription: this.orderDetail.vehicle.description,
-                                                                                      vehicleLocation: this.orderDetail.vehicle.location.name + ", " + this.orderDetail.vehicle.location.country}});
+        this.router.navigate(['booking-confirmation'], {
+          queryParams: {
+            ownerName: this.orderDetail.own.fullName,
+            ownerEmail: this.orderDetail.own.email,
+            totalPrice: this.orderDetail.totalPrice,
+            startDate: this.orderDetail.startTime,
+            endDate: this.orderDetail.endTime,
+            vehicleBrand: this.orderDetail.vehicle.brand,
+            vehicleDescription: this.orderDetail.vehicle.description,
+            vehicleLocation: this.orderDetail.vehicle.location.name + ', ' + this.orderDetail.vehicle.location.country
+          }
+        });
       });
-    })
+    });
 
   }
 

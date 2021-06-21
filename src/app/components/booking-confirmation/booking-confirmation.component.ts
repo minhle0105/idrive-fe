@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {OrderDetail} from '../../model/order-detail';
 
@@ -19,7 +19,8 @@ export class BookingConfirmationComponent implements OnInit {
   vehicleLocation;
 
   constructor(private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit() {
   }
@@ -34,8 +35,19 @@ export class BookingConfirmationComponent implements OnInit {
       this.vehicleBrand = params.vehicleBrand;
       this.vehicleDescription = params.vehicleDescription;
       this.vehicleLocation = params.vehicleLocation;
-      this.router.navigate(['invoice'], {queryParams: {ownerName: this.ownerName, ownerEmail: this.ownerEmail, totalPrice: this.totalPrice, startDate: this.startDate, endDate: this.endDate  , vehicleBrand: this.vehicleBrand, vehicleDescription: this.vehicleDescription, vehicleLocation: this.vehicleLocation}});
-    })
+      this.router.navigate(['invoice'], {
+        queryParams: {
+          ownerName: this.ownerName,
+          ownerEmail: this.ownerEmail,
+          totalPrice: this.totalPrice,
+          startDate: this.startDate,
+          endDate: this.endDate,
+          vehicleBrand: this.vehicleBrand,
+          vehicleDescription: this.vehicleDescription,
+          vehicleLocation: this.vehicleLocation
+        }
+      });
+    });
 
   }
 
