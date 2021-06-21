@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Vehicle} from '../../model/vehicle';
 import {VehicleService} from '../../service/vehicle/vehicle.service';
@@ -17,11 +17,13 @@ export class CheckoutComponent implements OnInit {
   vehicleToCheckout: Vehicle = {};
   startDate;
   endDate;
+  orderDetail: OrderDetail = {};
 
   constructor(private activatedRoute: ActivatedRoute,
               private vehicleService: VehicleService,
               private router: Router,
-              private orderDetailService: OrderDetailService) { }
+              private orderDetailService: OrderDetailService) {
+  }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -30,35 +32,42 @@ export class CheckoutComponent implements OnInit {
       this.getVehicleById(this.vehicleId);
       this.startDate = params.startDate;
       this.endDate = params.endDate;
-    })
-  }
-
-  checkOut() {
-    this.router.navigate(['booking-confirmation']);
+    });
   }
 
   getVehicleById(id) {
     this.vehicleService.findById(this.vehicleId).subscribe(v => {
       this.vehicleToCheckout = v;
-    })
+    });
   }
 
   saveOrderDetails() {
-    let orderDetail: OrderDetail = {};
     this.vehicleService.findById(this.vehicleId).subscribe(v => {
       this.vehicleToCheckout = v;
-      orderDetail.vehicle = this.vehicleToCheckout;
-      orderDetail.totalPrice = this.lengthOfRental * this.vehicleToCheckout.price;
-      orderDetail.startTime = new Date(this.startDate);
-      orderDetail.endTime = new Date(this.endDate);
-      orderDetail.own = this.vehicleToCheckout.owner;
-      orderDetail.renter = {
+      this.orderDetail.vehicle = this.vehicleToCheckout;
+      this.orderDetail.totalPrice = this.lengthOfRental * this.vehicleToCheckout.price;
+      this.orderDetail.startTime = new Date(this.startDate);
+      this.orderDetail.endTime = new Date(this.endDate);
+      this.orderDetail.own = this.vehicleToCheckout.owner;
+      this.orderDetail.renter = {
         userId: 2
       };
-      this.orderDetailService.save(orderDetail).subscribe(() => {
-        console.log("Saved");
+      this.orderDetailService.save(this.orderDetail).subscribe(() => {
+        this.router.navigate(['booking-confirmation'], {
+          queryParams: {
+            ownerName: this.orderDetail.own.fullName,
+            ownerEmail: this.orderDetail.own.email,
+            totalPrice: this.orderDetail.totalPrice,
+            startDate: this.orderDetail.startTime,
+            endDate: this.orderDetail.endTime,
+            vehicleBrand: this.orderDetail.vehicle.brand,
+            vehicleDescription: this.orderDetail.vehicle.description,
+            vehicleLocation: this.orderDetail.vehicle.location.name + ', ' + this.orderDetail.vehicle.location.country
+          }
+        });
       });
-    })
+    });
+
   }
 
 

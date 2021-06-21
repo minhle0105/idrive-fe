@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LocationService} from '../../service/location/location.service';
 import {VehicleTypeService} from '../../service/vehicle-type/vehicle-type.service';
 import {VehicleType} from '../../model/vehicle-type';
@@ -17,7 +17,8 @@ export class BannerComponent implements OnInit {
 
   constructor(private locationService: LocationService,
               private vehicleTypeService: VehicleTypeService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.getAllLocations();
@@ -25,7 +26,7 @@ export class BannerComponent implements OnInit {
   }
 
   searchVehicles(locationId, vehicleTypeId) {
-    this.router.navigate(['search-result'], {queryParams:{q: locationId, p: vehicleTypeId}});
+    this.router.navigate(['search-result'], {queryParams: {q: locationId, p: vehicleTypeId}});
   }
 
   getAllLocations() {
