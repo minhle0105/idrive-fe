@@ -15,6 +15,7 @@ export class InvoiceComponent implements OnInit {
   userId: number;
   user: User = {};
   isLoggedIn: boolean;
+
   ownerName;
   ownerEmail;
   totalPrice;
