@@ -42,8 +42,8 @@ export class DashboardBookingsComponent implements OnInit {
     })
   }
 
-  searchByDate(date) {
-    this.order.findByDate(date).subscribe(data =>{
+  searchByDate(startDate, endDate) {
+    this.order.findBetween(new Date(startDate), new Date(endDate)).subscribe(data =>{
      this.orderDetail = data;
     for (let i = 0; i < this.orderDetail.length; i++) {
       if (this.orderDetail[i].renter.userId === this.currentUserId) {

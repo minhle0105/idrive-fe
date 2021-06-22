@@ -22,4 +22,8 @@ export class OrderDetailService {
   save(orderDetail: OrderDetail): Observable<OrderDetail> {
     return this.http.post<OrderDetail>(`${API_URL}/Order`, orderDetail);
   }
+
+  findBetween(startDate: Date, endDate: Date):Observable<OrderDetail[]> {
+    return this.http.get<OrderDetail[]>(`${API_URL}/Order/findBetween/${startDate}/${endDate}`);
+  }
 }
