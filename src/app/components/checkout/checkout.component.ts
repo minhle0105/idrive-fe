@@ -15,16 +15,20 @@ import {UserService} from '../../service/user.service';
 })
 export class CheckoutComponent implements OnInit {
 
+  // to get current user
   username: string;
   userId: number;
   user: User = {};
   isLoggedIn: boolean;
 
+  // to send necessary order details to invoice
   lengthOfRental: number = -1;
   vehicleId: number = -1;
   vehicleToCheckout: Vehicle = {};
   startDate;
   endDate;
+
+  // to save order details to db
   orderDetail: OrderDetail = {};
 
   constructor(private activatedRoute: ActivatedRoute,

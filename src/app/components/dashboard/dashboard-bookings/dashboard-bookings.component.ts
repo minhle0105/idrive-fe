@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {LocationService} from '../../../service/location/location.service';
-import {VehicleService} from '../../../service/vehicle/vehicle.service';
 import {Vehicle} from '../../../model/vehicle';
 import {OrderDetailService} from '../../../service/order-detail.service';
 import {OrderDetail} from '../../../model/order-detail';
@@ -18,10 +16,10 @@ export class DashboardBookingsComponent implements OnInit {
   isLoggedIn: boolean;
   username: string;
 
-  orderDetail:OrderDetail[] = [];
+  orderDetail: OrderDetail[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute ,
-              private order:OrderDetailService,
+  constructor(private activatedRoute: ActivatedRoute,
+              private order: OrderDetailService,
               private authService: AuthService,
               private userService: UserService) {
     this.authService.loggedIn.subscribe((data: boolean) => this.isLoggedIn = data);
@@ -29,22 +27,37 @@ export class DashboardBookingsComponent implements OnInit {
     this.authService.userId.subscribe((data: number) => this.currentUserId = data);
     this.username = this.authService.getUserName();
     this.currentUserId = this.authService.getUserId();
-    if (this.username != null){
+    if (this.username != null) {
       this.isLoggedIn = true;
     }
   }
 
   ngOnInit() {
-    this.order.History(this.currentUserId).subscribe(data=>{
-      this.orderDetail = data
-      console.log(data)
-    })
+    this.order.History(this.currentUserId).subscribe(data => {
+      this.orderDetail = data;
+    });
+    this.getAll();
   }
 
+  getAll() {
+    this.order.findAll().subscribe(data => {
+      this.orderDetail = data;
+      for (let i = 0; i < this.orderDetail.length; i++) {
+        if (this.orderDetail[i].renter.userId === this.currentUserId) {
+          this.orderDetail.splice(i, 1);
+        }
+      }
+    });
+  }
 
-  searchByDate(date) {
-    this.order.findByDate(date).subscribe(data =>{
-     this.orderDetail = data
+  searchByDate(date: any) {
+    this.order.findBetween(date).subscribe(data => {
+      this.orderDetail = data;
+      for (let i = 0; i < this.orderDetail.length; i++) {
+        if (this.orderDetail[i].renter.userId === this.currentUserId) {
+          this.orderDetail.splice(i, 1);
+        }
+      }
     });
   }
 
