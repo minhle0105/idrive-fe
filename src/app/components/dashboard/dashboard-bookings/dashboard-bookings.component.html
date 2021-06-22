@@ -67,40 +67,40 @@
         <h4>Booking Requests</h4>
         <ul>
 
-          <li class="pending-booking" *ngFor="let user of orderDetail">
+          <li class="pending-booking" *ngFor="let detail of orderDetail">
             <div class="list-box-listing bookings">
               <div class="list-box-listing-img"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=120" alt=""></div>
               <div class="list-box-listing-content">
                 <div class="inner">
-                  <h3>{{user.renter.fullName}} <span class="booking-status pending">Pending</span><span class="booking-status unpaid">Unpaid</span></h3>
+                  <h3> {{detail.vehicle.brand}} - {{detail.vehicle.license}} <span class="booking-status pending">Pending</span><span class="booking-status unpaid">Unpaid</span></h3>
 
                   <div class="inner-booking-list">
                     <h5>Booking Date:</h5>
                     <ul class="booking-list">
-                      <li class="highlighted">{{user.startTime | date}} --- {{user.endTime | date}}</li>
+                      <li class="highlighted"> {{detail.startTime | date}} --- {{detail.endTime | date}}</li>
                     </ul>
                   </div>
 
                   <div class="inner-booking-list">
                     <h5>Booking Details:</h5>
                     <ul class="booking-list">
-                      <li class="highlighted">{{user.vehicle.brand}}</li>
+                      <li class="highlighted"> {{detail.vehicle.brand}} -- {{detail.vehicle.license}} -- {{detail.vehicle.description}}</li>
                     </ul>
                   </div>
 
                   <div class="inner-booking-list">
                     <h5>Price:</h5>
                     <ul class="booking-list">
-                      <li class="highlighted">{{user.totalPrice}}</li>
+                      <li class="highlighted"> {{detail.totalPrice}}</li>
                     </ul>
                   </div>
 
                   <div class="inner-booking-list">
                     <h5>Client:</h5>
                     <ul class="booking-list">
-                      <li>{{user.own.fullName}}</li>
-                      <li>{{user.own.email}}</li>
-                      <li>{{user.own.phone}}</li>
+                      <li> {{detail.renter.fullName}}</li>
+                      <li> {{detail.renter.email}}</li>
+                      <li> {{detail.renter.phone}}</li>
                     </ul>
                   </div>
 
@@ -123,7 +123,7 @@
 
     <!-- Copyrights -->
     <div class="col-md-12">
-      <p> Copyright by <a href="https://crackall.net/">CrackAll</a>. All rights reserved.
+      <p> Copyright by <a href="https://github.com/minhle0105/idrive-fe">Hanoi Heat</a>. All rights reserved.
       </p></div>
   </div>
 

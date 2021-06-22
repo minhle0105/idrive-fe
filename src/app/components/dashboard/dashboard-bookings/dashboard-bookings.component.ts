@@ -17,6 +17,7 @@ export class DashboardBookingsComponent implements OnInit {
   currentUserId: number;
   isLoggedIn: boolean;
   username: string;
+  vehicleOfThisOwner: Vehicle[] = [];
 
   orderDetail:OrderDetail[] = [];
 
@@ -41,10 +42,14 @@ export class DashboardBookingsComponent implements OnInit {
     })
   }
 
-
   searchByDate(date) {
     this.order.findByDate(date).subscribe(data =>{
-     this.orderDetail = data
+     this.orderDetail = data;
+    for (let i = 0; i < this.orderDetail.length; i++) {
+      if (this.orderDetail[i].renter.userId === this.currentUserId) {
+        this.orderDetail.splice(i,1);
+      }
+    }
     });
   }
 
