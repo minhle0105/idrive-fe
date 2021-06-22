@@ -12,10 +12,6 @@ export class OrderDetailService {
 
   constructor(private http:HttpClient) { }
 
-  findByDate(Date:any):Observable<OrderDetail[]>{
-    return this.http.post<OrderDetail[]>(`${API_URL}/Order/findByDate`,Date)
-  }
-
   findAll(ownerId: number):Observable<OrderDetail[]> {
     // @ts-ignore
     return this.http.get<OrderDetail[]>(`${API_URL}/Order`, ownerId);
