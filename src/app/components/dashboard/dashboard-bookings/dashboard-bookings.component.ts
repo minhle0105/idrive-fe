@@ -35,12 +35,23 @@ export class DashboardBookingsComponent implements OnInit {
   ngOnInit() {
     this.order.History(this.currentUserId).subscribe(data => {
       this.orderDetail = data;
-      console.log(data);
+    });
+    this.getAll();
+  }
+
+  getAll() {
+    this.order.findAll().subscribe(data => {
+      this.orderDetail = data;
+      for (let i = 0; i < this.orderDetail.length; i++) {
+        if (this.orderDetail[i].renter.userId === this.currentUserId) {
+          this.orderDetail.splice(i, 1);
+        }
+      }
     });
   }
 
   searchByDate(date: any) {
-    this.order.findByDate(date).subscribe(data => {
+    this.order.findBetween(date).subscribe(data => {
       this.orderDetail = data;
       for (let i = 0; i < this.orderDetail.length; i++) {
         if (this.orderDetail[i].renter.userId === this.currentUserId) {

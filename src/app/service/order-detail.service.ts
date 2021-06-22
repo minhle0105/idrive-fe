@@ -15,6 +15,10 @@ export class OrderDetailService {
     return this.http.post<OrderDetail[]>(`${API_URL}/Order/findByDate`,Date)
   }
 
+  findAll(): Observable<OrderDetail[]> {
+    return this.http.get<OrderDetail[]>(`${API_URL}/Order`);
+  }
+
   History(id:number):Observable<OrderDetail[]>{
     return this.http.get<OrderDetail[]>(`${API_URL}/Order/${id}`)
   }
@@ -23,7 +27,8 @@ export class OrderDetailService {
     return this.http.post<OrderDetail>(`${API_URL}/Order`, orderDetail);
   }
 
-  findBetween(startDate: Date, endDate: Date):Observable<OrderDetail[]> {
-    return this.http.get<OrderDetail[]>(`${API_URL}/Order/findBetween/${startDate}/${endDate}`);
+  findBetween(date: any):Observable<OrderDetail[]> {
+    // @ts-ignore
+    return this.http.post<OrderDetail[]>(`${API_URL}/Order/findBetween/${date}`);
   }
 }
