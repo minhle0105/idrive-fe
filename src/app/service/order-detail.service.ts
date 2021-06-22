@@ -3,6 +3,7 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {OrderDetail} from '../model/order-detail';
+import {User} from '../model/user';
 const API_URL = `${environment.apiUrl}`
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,9 @@ export class OrderDetailService {
     return this.http.post<OrderDetail[]>(`${API_URL}/Order/findByDate`,Date)
   }
 
-  findAll(): Observable<OrderDetail[]> {
-    return this.http.get<OrderDetail[]>(`${API_URL}/Order`);
+  findAll(ownerId: number):Observable<OrderDetail[]> {
+    // @ts-ignore
+    return this.http.get<OrderDetail[]>(`${API_URL}/Order`, ownerId);
   }
 
   History(id:number):Observable<OrderDetail[]>{
@@ -27,8 +29,8 @@ export class OrderDetailService {
     return this.http.post<OrderDetail>(`${API_URL}/Order`, orderDetail);
   }
 
-  findBetween(date: any):Observable<OrderDetail[]> {
+  findBetween(date: any, ownerId: number):Observable<OrderDetail[]> {
     // @ts-ignore
-    return this.http.post<OrderDetail[]>(`${API_URL}/Order/findBetween/${date}`);
+    return this.http.post<OrderDetail[]>(`${API_URL}/Order/findBetween/${date}/${ownerId}`);
   }
 }

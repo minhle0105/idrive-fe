@@ -5,6 +5,7 @@ import {OrderDetailService} from '../../../service/order-detail.service';
 import {OrderDetail} from '../../../model/order-detail';
 import {AuthService} from '../../../service/auth.service';
 import {UserService} from '../../../service/user.service';
+import {User} from '../../../model/user';
 
 @Component({
   selector: 'app-dashboard-bookings',
@@ -40,24 +41,14 @@ export class DashboardBookingsComponent implements OnInit {
   }
 
   getAll() {
-    this.order.findAll().subscribe(data => {
+    this.order.findAll(this.currentUserId).subscribe(data => {
       this.orderDetail = data;
-      for (let i = 0; i < this.orderDetail.length; i++) {
-        if (this.orderDetail[i].renter.userId === this.currentUserId) {
-          this.orderDetail.splice(i, 1);
-        }
-      }
-    });
+    })
   }
 
   searchByDate(date: any) {
-    this.order.findBetween(date).subscribe(data => {
+    this.order.findBetween(date, this.currentUserId).subscribe(data => {
       this.orderDetail = data;
-      for (let i = 0; i < this.orderDetail.length; i++) {
-        if (this.orderDetail[i].renter.userId === this.currentUserId) {
-          this.orderDetail.splice(i, 1);
-        }
-      }
     });
   }
 
