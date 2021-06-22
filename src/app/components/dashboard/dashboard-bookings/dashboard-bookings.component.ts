@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {LocationService} from '../../../service/location/location.service';
-import {VehicleService} from '../../../service/vehicle/vehicle.service';
 import {Vehicle} from '../../../model/vehicle';
 import {OrderDetailService} from '../../../service/order-detail.service';
 import {OrderDetail} from '../../../model/order-detail';
@@ -17,7 +15,6 @@ export class DashboardBookingsComponent implements OnInit {
   currentUserId: number;
   isLoggedIn: boolean;
   username: string;
-  vehicleOfThisOwner: Vehicle[] = [];
 
   orderDetail: OrderDetail[] = [];
 
